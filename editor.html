@@ -1,0 +1,52 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html>
+
+<head>
+    <script src="https://www.wiris.net/demo/editor/editor"></script>
+    <script>
+        var editor;
+        window.onload = function () {
+            editor = com.wiris.jsEditor.JsEditor.newInstance({ 'language': 'en' });
+            editor.insertInto(document.getElementById('editorContainer'));
+            editor.setMathML('<math><mrow><mi>x</mi><mo>=</mo><mfrac><mrow><mo>-</mo><mi>b</mi><mo>&PlusMinus;</mo><msqrt><msup><mi>b</mi><mn>2</mn></msup><mo>-</mo><mn>4</mn><mi>a</mi><mi>c</mi></msqrt></mrow><mrow><mn>2</mn><mi>a</mi></mrow></mfrac></mrow></math>');
+
+        }
+    </script>
+</head>
+
+<body>
+    <div id="editorContainer"></div>
+    <button id="btnSave">Guardar</button>
+
+    <button id="btnPreview">Vista Previa</button>
+
+    <br><br>
+
+    <div id="previewwmath"></div>
+</body>
+
+<script>
+    document.getElementById('btnSave').addEventListener('click', getMathML);
+    function getMathML() {
+        var mathml = editor.getMathML();
+        console.log(mathml);
+
+    }
+
+    document.getElementById('btnPreview').addEventListener('click', previewMath);
+    function previewMath() {
+        // limpiar el div previewwmath
+        document.getElementById('previewwmath').innerHTML = '';
+        // mostrar la formula en el div previewwmath como image
+        var mathml = editor.getMathML();
+        var img = document.createElement('img');
+        img.src = 'https://www.wiris.net/demo/editor/render?mml=' + encodeURIComponent(mathml);
+        document.getElementById('previewwmath').appendChild(img);
+    }
+
+
+
+
+</script>
+
+</html>
